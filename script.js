@@ -1,90 +1,50 @@
-const input = document.getElementById("number")
-const convertBtn = document.getElementById("convert-btn")
-const output = document.getElementById("output")
-let numeralRoman = ""
+const input = document.getElementById('number');
+const convertBtn = document.getElementById('convert-btn');
+const output = document.getElementById('output');
+
 const romanNumeral = [
-  {
-    input: 1000,
-    numeral: "M",
-  },
-  {
-    input: 900,
-    numeral: "CM",
-  },
-  {
-    input: 500,
-    numeral: "D",
-  },
-  {
-    input: 400,
-    numeral: "CD",
-  },
-  {
-    input: 100,
-    numeral: "C",
-  },
-  {
-    input: 90,
-    numeral: "XC",
-  },
-  {
-    input: 50,
-    numeral: "L"
-  },
-  {
-    input: 40,
-    numeral: "XL",
-  },
-  {
-    input: 10,
-    numeral: "X",
-  },
-  {
-    input: 9,
-    numeral: "IX",
-  },
-  {
-    input: 5,
-    numeral: "V",
-  },
-  {
-    input: 4,
-    numeral: "IV",
-  },
-  {
-    input: 1,
-    numeral: "I",
-  },
+  { value: 1000, numeral: 'M' },
+  { value: 900, numeral: 'CM' },
+  { value: 500, numeral: 'D' },
+  { value: 400, numeral: 'CD' },
+  { value: 100, numeral: 'C' },
+  { value: 90, numeral: 'XC' },
+  { value: 50, numeral: 'L' },
+  { value: 40, numeral: 'XL' },
+  { value: 10, numeral: 'X' },
+  { value: 9, numeral: 'IX' },
+  { value: 5, numeral: 'V' },
+  { value: 4, numeral: 'IV' },
+  { value: 1, numeral: 'I' },
 ];
 
-
 convertBtn.addEventListener('click', (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  let num = parseInt(input.value, 10)
 
-
-  if (input.value === "") {
-    output.innerText = "Please enter a valid number"
-    return
-  } else if (input.value < 0) {
-    output.innerText = "Please enter a number greater than or equal to 1"
-    return
-  } else if (input.value > 3999) {
-    output.innerText = "Please enter a number less than or equal to 3999"
-   return
-  } 
-     toRoman(input.value);
-  output.innerText = numeralRoman;
+  if (isNaN(num)) {
+    output.innerText = 'Please enter a valid number';
+    return;
+  } if (num < 1) {
+    output.innerText = 'Please enter a number greater than or equal to 1';
+    return;
+  } if (num > 3999) {
+    output.innerText = 'Please enter a number less than or equal to 3999';
+    return;
+  }
+  
+  output.innerText = decimalToRoman(num);
 });
 
-const toRoman = (input) => {
-  let result = "";
-  let remaining = input;
+const decimalToRoman = (num) => {
+  let result = '';
+  let remaining = num;
 
-  for (const { input, numeral } of romanNumeral) {
-    while (remaining >= input) {
+  for (const { value, numeral } of romanNumeral) {
+    while (remaining >= value) {
       result += numeral;
-      remaining -= input;
+      remaining -= value;
     }
   }
-numeralRoman = result;
+  return result;
 };
